@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    
+    <head th:include="layout :: htmlhead"></head>
+
+    <body>
+        <nav th:replace="layout :: menu">(menu)</nav>
+        <div class="container">
+            <h1 style = "font-family:Bradley Hand,arial,helvetica; color: rgb(0, 0, 0);">Usuário</h1>
+
+
+            <a th:href="@{/usuariodonopet/novo}" class="btn btn-primary"> Novo Usuário</a>
+            <table class="table" id="usuariosdonospet">
+               <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Sexo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            
+
+
+           <tbody>
+                    <tr th:each="umUsuarioDonoPet : ${listaUsuarioDonoPet}">
+                        <td th:text="${umUsuarioDonoPet.id}"></td>
+                        <td th:text="${umUsuarioDonoPet.nome}"></td>
+                        <td th:text="${umUsuarioDonoPet.cpf}"></td>
+                        <td th:text="${umUsuarioDonoPet.email}"></td>
+                        <td th:text="${umUsuarioDonoPet.telefone}"></td>
+                        <td th:text="${umUsuarioDonoPet.sexo}"></td>
+                        <td><a th:href="@{'/usuariodonopet/alterar/' + ${umUsuarioDonoPet.id}}"
+                            class="btn btn-primary">Alterar</a>
+                            <button class="btn btn-danger js-delete"
+                            th:data-id="${umUsuarioDonoPet.id}">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div th:include="layout :: footer">(footer)</div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#usuariosdonospet").on('click', ".js-delete", function(){
+                    /* let variavel*/
+                    let button = $(this);
+                    bootbox.confirm("Confirmar a exclusão do registro?",
+                        function(result){
+                            if (result){
+                                $.ajax({
+                                    url:'/usuariodonopet/delete/' + button.attr("data-id"),
+                                    method: "GET",
+                                    success : function(){
+                                        window.location.href="/usuariodonopet/";
+                                    }
+                                })
+                            }
+                    });
+                });
+            });
+            
+        </script>
+            <!-- callback conceito nv - passagem de função por parâmetro-->
+    </body>
+</html>

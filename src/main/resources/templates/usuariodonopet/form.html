@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    
+    <head th:include="layout :: htmlhead"></head>
+
+    <body>
+        <nav th:replace="layout :: menu">(menu)</nav>
+        <div class="container">
+            <form th:action="@{/usuariodonopet/(form)}" 
+            th:object="${usuariodonopet}"
+            method="POST">
+            <!-- comentarioooo -->
+                <input type="hidden" th:field="*{id}">
+                <div class="form-group">
+
+                <label>Nome</label>
+                <input type="text" class="form-control"
+                id="txtnome" th:field="*{nome}">
+                <!-- nome do dto escreve do mesmo jeito-->
+                <div>
+
+                <label>CPF</label>
+                <input type="number" class="form-control"
+                id="numbercpf" th:field="*{cpf}">
+                
+
+                <div>
+                <label>E-mail</label>
+                <input type="text" class="form-control"
+                id="txtemail" th:field="*{email}">
+
+
+                <div>
+                <label>Senha</label>
+                <input type="text" class="form-control"
+                id="txtsenha" th:field="*{senha}">
+ 
+
+                <div>
+                <label>Telefone</label>
+                <input type="number" class="form-control"
+                id="numbertelefone" th:field="*{telefone}">
+
+                
+                <div>
+                <label>Sexo</label>
+                <input type="text" class="form-control"
+                id="txtsexo" th:field="*{sexo}">
+                <input type="submit"> 
+
+                <!-- se fosse data teria que colcoar date no type
+                e no DTO precisa colocar o 
+                @dataTimeFormat(pattern = 'yyyy-MM-dd') 
+                encima do atributo data do DTO-->
+                
+                </div>
+            </form>
+            
+
+        </div>
+
+        <div th:include="layout :: footer">(footer)</div>
+        
+    </body>
+</html>
